@@ -1,20 +1,35 @@
-let amigos = [];
+const amigos = [];
 
 function adicionarAmigo(){
     let entrada = document.getElementById('amigo');
-    let novo_amigo = entrada.value.trim();
+    let novoAmigo = entrada.value.trim();
 
-    if (novo_amigo === ''){
+    if (novoAmigo === ''){
         alert('Por favor, insira um nome.');
-    } else {
-        if (amigos.indexOf(novo_amigo)!== -1 ){
-            entrada.value = '';
-            alert('Nome já inserido!');
-        } else {
-            amigos.push(novo_amigo);
-            entrada.value = '';
-            console.log(amigos);
-            return amigos
-        }
+        return;
+    } 
+
+    if (amigos.includes(novoAmigo)){
+        entrada.value = '';
+        alert('Nome já inserido!');
+        return; 
+    }
+
+    amigos.push(novoAmigo);
+    entrada.value = '';
+    atualizarListaAmigos(amigos);
+    return amigos;
+}
+
+function atualizarListaAmigos(amigos){
+    const listaAmigosElement = document.getElementById('listaAmigos');
+    listaAmigosElement.innerHTML = '';
+
+    for (let i = 0; i < amigos.length; i++){
+        const li = document.createElement('li');
+        li.textContent = amigos[i];
+        listaAmigosElement.appendChild(li)
     }
 }
+
+
